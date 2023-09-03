@@ -8,7 +8,7 @@ export const Home = () => {
     <div className="">
       <div className={classes.container}>
         <ul>
-          {/* 記事の一覧をmap処理で繰り返し表示します。 */}
+          {/* 記事の一覧をmap処理で繰り返し表示します。*/}
           {posts.map((post) => {
             return (
               <li key={post.id} className={classes.list}>
