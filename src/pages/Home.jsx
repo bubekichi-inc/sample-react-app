@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from '../styles/Home.module.scss'
-import { posts } from '../demoData/posts'
+import { posts } from '../data/posts'
 import { Link } from 'react-router-dom'
 
 export const Home = () => {

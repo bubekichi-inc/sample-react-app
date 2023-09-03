@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import classes from '../styles/Detail.module.scss'
-import { posts } from '../demoData/posts'
+import { posts } from '../data/posts'
 
 export const Detail = () => {
   // react-routerのuseParamsを使うと、URLのパラメータを取得できます。
