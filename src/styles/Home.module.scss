@@ -1,3 +1,9 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -22,9 +28,13 @@
   }
 }
 
-.postContent {
-  flex: 2;
-  padding-left: 1rem;
+.postBody {
+  font-size: 1rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .postInfo {
