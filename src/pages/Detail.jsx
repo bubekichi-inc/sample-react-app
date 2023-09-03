@@ -37,7 +37,10 @@ export const Detail = () => {
             </div>
           </div>
           <div className={classes.postTitle}>{post.title}</div>
-          <div className={classes.postBody}>{post.content}</div>
+          <div
+            className={classes.postBody}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
         </div>
       </div>
     </div>

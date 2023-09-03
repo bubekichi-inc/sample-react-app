@@ -14,9 +14,6 @@ export const Home = () => {
               <li key={post.id} className={classes.list}>
                 <Link to={`/posts/${post.id}`} className={classes.link}>
                   <div className={classes.post}>
-                    <div className={classes.postImage}>
-                      <img src={post.thumbnailUrl} alt="" />
-                    </div>
                     <div className={classes.postContent}>
                       <div className={classes.postInfo}>
                         <div className={classes.postDate}>
@@ -36,7 +33,10 @@ export const Home = () => {
                         </div>
                       </div>
                       <p className={classes.postTitle}>{post.title}</p>
-                      <div className={classes.postBody}>{post.content}</div>
+                      <div
+                        className={classes.postBody}
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      />
                     </div>
                   </div>
                 </Link>
