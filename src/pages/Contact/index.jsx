@@ -3,18 +3,66 @@ import { Label } from './Label'
 import { FormGroup } from './FormGroup'
 import { Input } from './Input'
 import { Textarea } from './Textarea'
+import { ErrorMessage } from './ErrorMessage'
 
 export const Contact = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    handleClear()
-    alert('送信しました。')
+  const [nameErrorMessage, setNameErrorMessage] = useState('')
+  const [emailErrorMessage, setEmailErrorMessage] = useState('')
+  const [messageErrorMessage, setMessageErrorMessage] = useState('')
+
+  /** バリデーション */
+  const valid = () => {
+    let isValid = true
+    let nameError = ''
+    let emailError = ''
+    let messageError = ''
+
+    if (!name) {
+      nameError = 'お名前は必須です。'
+      isValid = false
+    } else if (name.length > 30) {
+      nameError = 'お名前は30文字以内で入力してください。'
+      isValid = false
+    }
+
+    if (!email) {
+      emailError = 'メールアドレスは必須です。'
+      isValid = false
+    } else if (!email.match(/.+@.+\..+/)) {
+      emailError = 'メールアドレスの形式が正しくありません。'
+      isValid = false
+    }
+
+    if (!message) {
+      messageError = '本文は必須です。'
+      isValid = false
+    } else if (message.length > 500) {
+      messageError = '本文は500文字以内で入力してください。'
+      isValid = false
+    }
+
+    setNameErrorMessage(nameError)
+    setEmailErrorMessage(emailError)
+    setMessageErrorMessage(messageError)
+
+    return isValid
   }
 
+  /** フォームの送信 */
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!valid()) return
+
+    alert('送信しました。')
+    handleClear()
+  }
+
+  /** フォームのクリア */
   const handleClear = () => {
     setName('')
     setEmail('')
@@ -28,29 +76,38 @@ export const Contact = () => {
         <form onSubmit={handleSubmit}>
           <FormGroup>
             <Label text="お名前" htmlFor="name" />
-            <Input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(value) => setName(value)}
-            />
+            <div className="w-full">
+              <Input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(value) => setName(value)}
+              />
+              <ErrorMessage message={nameErrorMessage} />
+            </div>
           </FormGroup>
           <FormGroup>
             <Label text="メールアドレス" htmlFor="email" />
-            <Input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(value) => setEmail(value)}
-            />
+            <div className="w-full">
+              <Input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(value) => setEmail(value)}
+              />
+              <ErrorMessage message={emailErrorMessage} />
+            </div>
           </FormGroup>
           <FormGroup>
             <Label text="本文" htmlFor="message" />
-            <Textarea
-              id="message"
-              value={message}
-              onChange={(value) => setMessage(value)}
-            />
+            <div className="w-full">
+              <Textarea
+                id="message"
+                value={message}
+                onChange={(value) => setMessage(value)}
+              />
+              <ErrorMessage message={messageErrorMessage} />
+            </div>
           </FormGroup>
           <div className="flex justify-center mt-10">
             <button
