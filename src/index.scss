@@ -1,3 +1,8 @@
+// TailwindCSSの設定
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // こちらで記述したスタイルは、globalで全体に適用されます。
 
 body {
@@ -7,8 +12,11 @@ body {
 .header {
   background-color: #333;
   color: #fff;
-  padding: 16px;
+  padding: 24px;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-link {
