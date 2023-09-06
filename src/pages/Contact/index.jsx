@@ -4,6 +4,7 @@ import { FormGroup } from './FormGroup'
 import { Input } from './Input'
 import { Textarea } from './Textarea'
 import { ErrorMessage } from './ErrorMessage'
+import { API_BASE_URL } from '../../constants'
 
 export const Contact = () => {
   const [name, setName] = useState('')
@@ -53,12 +54,21 @@ export const Contact = () => {
   }
 
   /** フォームの送信 */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!valid()) return
 
+    await fetch(`${API_BASE_URL}/contacts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, message }),
+    })
+
     alert('送信しました。')
+
     handleClear()
   }
 
