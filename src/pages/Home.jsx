@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from '../styles/Home.module.scss'
-import { posts } from '../data/posts'
 import { Link } from 'react-router-dom'
+import { API_BASE_URL } from '../constants'
 
 export const Home = () => {
+  const [posts, setPosts] = useState([])
+
+  // APIでpostsを取得する処理をuseEffectで実行します。
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`${API_BASE_URL}/posts`)
+      const { posts } = await res.json()
+      setPosts(posts)
+    }
+
+    fetcher()
+  }, [])
+
   return (
     <div className="">
       <div className={classes.container}>

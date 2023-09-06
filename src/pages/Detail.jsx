@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import classes from '../styles/Detail.module.scss'
-import { posts } from '../data/posts'
+import { API_BASE_URL } from '../constants'
 
 export const Detail = () => {
   // react-routerのuseParamsを使うと、URLのパラメータを取得できます。
   const { id } = useParams()
+  const [post, setPost] = useState(null)
 
-  // postsの中からidが一致するものを探します。
-  const post = posts.find((post) => post.id === parseInt(id))
+  // APIでpostsを取得する処理をuseEffectで実行します。
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`${API_BASE_URL}/posts/${id}`)
+      const { post } = await res.json()
+      setPost(post)
+    }
+
+    fetcher()
+  }, [id])
 
   // 記事が見つからなかった場合は、記事が見つからないことを表示します。
   if (!post) {
