@@ -22,6 +22,7 @@ export const Detail = () => {
     fetcher()
   }, [id])
 
+  // 記事取得中は、読み込み中であることを表示します。
   if (loading) {
     return <div>読み込み中...</div>
   }
