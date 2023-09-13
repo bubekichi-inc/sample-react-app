@@ -7,20 +7,27 @@ export const Detail = () => {
   // react-routerのuseParamsを使うと、URLのパラメータを取得できます。
   const { id } = useParams()
   const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   // APIでpostsを取得する処理をuseEffectで実行します。
   useEffect(() => {
     const fetcher = async () => {
+      setLoading(true)
       const res = await fetch(`${API_BASE_URL}/posts/${id}`)
       const { post } = await res.json()
       setPost(post)
+      setLoading(false)
     }
 
     fetcher()
   }, [id])
 
+  if (loading) {
+    return <div>読み込み中...</div>
+  }
+
   // 記事が見つからなかった場合は、記事が見つからないことを表示します。
-  if (!post) {
+  if (!loading && !post) {
     return <div>記事が見つかりません</div>
   }
 
